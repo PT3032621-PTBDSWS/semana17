@@ -3,24 +3,22 @@
 {% block page_content %}
 <h2>Cadastro de Cursos</h2>
 
-<form method="POST" class="mb-4">
+<form method="POST">
     <div class="form-group">
-        <label for="nome">Qual é o nome do curso?</label>
-        <input type="text" name="nome" id="nome" class="form-control">
+        <label>Qual é o nome do curso?</label>
+        <input type="text" name="nome" class="form-control">
     </div>
 
-    <div class="form-group mt-2">
-        <label for="descricao">Descrição (250 caracteres)</label>
-        <textarea name="descricao" id="descricao" class="form-control" rows="4" maxlength="250"></textarea>
+    <div class="form-group">
+        <label>Descrição (250 caracteres)</label>
+        <textarea name="descricao" class="form-control" rows="3" maxlength="250"></textarea>
     </div>
 
-    <div class="mt-2">
-        <button class="btn btn-primary" type="submit">Cadastrar</button>
-    </div>
+    <button class="btn btn-primary">Cadastrar</button>
 </form>
 
-<h3>Relação de cursos cadastrados</h3>
-<table class="table table-striped">
+<h3 class="mt-4">Relação de cursos cadastrados</h3>
+<table class="table table-bordered">
     <thead>
         <tr>
             <th>Curso</th>
@@ -36,4 +34,5 @@
         {% endfor %}
     </tbody>
 </table>
+
 {% endblock %}
