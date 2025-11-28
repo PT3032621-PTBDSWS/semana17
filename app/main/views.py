@@ -1,43 +1,45 @@
-from flask import render_template, request
-from . import bp
+from flask import render_template, request, redirect, url_for, flash
 from datetime import datetime
-from ..models import Curso
-from .. import db
-from ..auth.forms import LoginForm
-from flask import current_app
+from . import bp
+from app.models import Curso
+from app import db
 
-# ROTA PRINCIPAL — Avaliação semestral (mostra nome e prontuário)
+# ROTA PRINCIPAL
 @bp.route('/')
 def index():
-    # **substitua com seu nome e prontuário** antes da prova ou deixe dinâmico
-    nome = "Seu Nome Aqui"
-    prontuario = "PT123456X"
-    data_hora = datetime.now().strftime("%B %d, %Y %I:%M %p")  # formato em inglês como no exemplo
-    return render_template('index.html', nome=nome, prontuario=prontuario, data_hora=data_hora)
+    nome = "Fabio Teixeira"       # <-- coloque aqui seu nome
+    prontuario = "PT23820X"       # <-- coloque aqui o seu prontuário
 
-# ROTA DE CURSOS (GET = listar, POST = cadastrar)
+    data_hora = datetime.now().strftime("%B %d, %Y %I:%M %p")
+
+    return render_template(
+        'index.html',
+        nome=nome,
+        prontuario=prontuario,
+        data_hora=data_hora
+    )
+
+# ROTA CURSOS
 @bp.route('/cursos', methods=['GET', 'POST'])
 def cursos():
-    from ..auth.forms import LoginForm  # só para manter import correto se necessário
-    from ..auth.forms import LoginForm
-    from flask import redirect, url_for, flash
-
-    # formulário para cadastro de cursos (simples, sem WTForms aqui para reduzir dependências)
     if request.method == 'POST':
         nome = request.form.get('nome')
         descricao = request.form.get('descricao')
+
         if not nome:
-            flash('Nome do curso é obrigatório.')
+            flash("O nome do curso é obrigatório.")
             return redirect(url_for('main.cursos'))
-        curso = Curso(nome=nome, descricao=descricao)
-        db.session.add(curso)
+
+        novo = Curso(nome=nome, descricao=descricao)
+        db.session.add(novo)
         db.session.commit()
+
         return redirect(url_for('main.cursos'))
 
-    cursos = Curso.query.all()
-    return render_template('cursos.html', cursos=cursos)
+    lista = Curso.query.all()
+    return render_template('cursos.html', cursos=lista)
 
-# ROTAS NÃO DISPONÍVEIS (devem retornar "Não disponível" + data/hora)
+# ROTAS NÃO IMPLEMENTADAS
 @bp.route('/professores')
 @bp.route('/disciplinas')
 @bp.route('/alunos')
@@ -45,3 +47,10 @@ def cursos():
 def nao_disponivel():
     data_hora = datetime.now().strftime("%B %d, %Y %I:%M %p")
     return render_template('nao_disponivel.html', data_hora=data_hora)
+
+# TRATAMENTO DE ERROS
+def page_not_found(e):
+    return render_template('404.html'), 404
+
+def internal_error(e):
+    return render_template('500.html'), 500
