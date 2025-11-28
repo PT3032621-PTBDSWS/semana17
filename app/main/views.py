@@ -7,8 +7,8 @@ from app import db
 # ROTA PRINCIPAL
 @bp.route('/')
 def index():
-    nome = "Fabio Teixeira"       # <-- coloque aqui seu nome
-    prontuario = "PT23820X"       # <-- coloque aqui o seu prontuário
+    nome = "Gustavo Maximo Da Silva"     
+    prontuario = "PT3032621"   
 
     data_hora = datetime.now().strftime("%B %d, %Y %I:%M %p")
 
