@@ -1,25 +1,26 @@
 {% extends "bootstrap/base.html" %}
 
-{% block title %}Avaliação semestral{% endblock %}
+{% block title %}Avaliação Semestral{% endblock %}
 
 {% block navbar %}
-<div class="navbar navbar-inverse" role="navigation">
+<div class="navbar navbar-inverse">
     <div class="container">
+
         <div class="navbar-header">
-            <a class="navbar-brand" href="{{ url_for('main.index') }}">Avaliação semestral</a>
+            <a class="navbar-brand" href="{{ url_for('main.index') }}">
+                Avaliação semestral
+            </a>
         </div>
 
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="{{ url_for('main.index') }}">Avaliação semestral</a></li>
-                <li><a href="{{ url_for('main.nao_disponivel') }}">Cadastro de Professores</a></li>
-                <li><a href="{{ url_for('main.nao_disponivel') }}">Cadastro de Disciplinas</a></li>
-                <li><a href="{{ url_for('main.nao_disponivel') }}">Cadastro de Alunos</a></li>
-                <li><a href="{{ url_for('main.cursos') }}">Cadastro de Cursos</a></li>
-                <li><a href="{{ url_for('main.nao_disponivel') }}">Cadastro de Ocorrências</a></li>
-                <li><a href="{{ url_for('auth.login') }}">Entrar</a></li>
-            </ul>
-        </div>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="{{ url_for('main.index') }}">Avaliação semestral</a></li>
+            <li><a href="{{ url_for('main.nao_disponivel') }}">Cadastro de Professores</a></li>
+            <li><a href="{{ url_for('main.nao_disponivel') }}">Cadastro de Disciplinas</a></li>
+            <li><a href="{{ url_for('main.nao_disponivel') }}">Cadastro de Alunos</a></li>
+            <li><a href="{{ url_for('main.cursos') }}">Cadastro de Cursos</a></li>
+            <li><a href="{{ url_for('main.nao_disponivel') }}">Cadastro de Ocorrências</a></li>
+        </ul>
+
     </div>
 </div>
 {% endblock %}
@@ -27,8 +28,9 @@
 {% block content %}
 <div class="container">
     {% for message in get_flashed_messages() %}
-    <div class="alert alert-info">{{ message }}</div>
+        <div class="alert alert-info">{{ message }}</div>
     {% endfor %}
+
     {% block page_content %}{% endblock %}
 </div>
 {% endblock %}
