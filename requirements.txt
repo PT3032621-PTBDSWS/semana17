@@ -1,6 +1,5 @@
-Flask>=2.0
+Flask
 Flask-Bootstrap
 Flask-WTF
-Flask-Login
 Flask-SQLAlchemy
 python-dotenv
